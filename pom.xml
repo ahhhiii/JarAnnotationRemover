@@ -23,6 +23,22 @@
             <artifactId>asm</artifactId>
             <version>9.2</version>
         </dependency>
+
+        <!-- ANNOTATIONS TO REMOVE -->
+        <dependency>
+            <groupId>net.bruhitsalex.jnicinterface</groupId>
+            <artifactId>JnicInterface</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/JnicInterface.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.stringer</groupId>
+            <artifactId>stringer-annotations</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/stringer-annotations.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
