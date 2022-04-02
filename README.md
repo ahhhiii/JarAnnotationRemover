@@ -43,3 +43,5 @@ public class Launcher {
 #### After
 
 ![image-20220402021717918](https://i.gyazo.com/6cb94f46e3bab4c3c322b01f1f3692d1.png)
+
+if im bored one day then ill add a quick swing ui
