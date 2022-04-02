@@ -1,0 +1,3 @@
+# JarAnnotationRemover
+
+1s
