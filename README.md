@@ -34,8 +34,6 @@ public class Launcher {
 }
 ```
 
-![image-20220402021119573](https://i.gyazo.com/72104c669992e0c33378c7b613377c9f.png)
-
 #### Before
 
 ![image-20220402021758623](https://i.gyazo.com/b0ba46bec12f77823227a16a076ab939.png)
