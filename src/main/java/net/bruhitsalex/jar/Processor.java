@@ -20,12 +20,14 @@ public class Processor {
 
     private final File input;
     private final File output;
-    private final List<Class> annotationsToRemove;
+    private final List<String> annotationsToRemove;
+    private final String whitelistedPackage;
 
-    public Processor(File input, File output, List<Class> annotationsToRemove) {
+    public Processor(File input, File output, List<String> annotationsToRemove, String whitelistedPackage) {
         this.input = input;
         this.output = output;
         this.annotationsToRemove = annotationsToRemove;
+        this.whitelistedPackage = whitelistedPackage.replace(".", "/");
     }
 
     public void start() {
@@ -74,14 +76,12 @@ public class Processor {
         InputStream is = zipFile.getInputStream(clazz);
         byte[] bytes = ByteStreams.toByteArray(is);
 
-        if (clazz.getName().endsWith(".class")) {
+        if (clazz.getName().endsWith(".class") && clazz.getName().startsWith(whitelistedPackage)) {
             ClassReader cr = new ClassReader(bytes);
             ClassNode cn = new ClassNode();
 
             byte[] transformed = transform(cr, cn);
-
-            byte[] result = clazz.getName().endsWith(".class") ? transformed : bytes;
-            ZipUtils.addFileToZip(zos, clazz.getName(), result);
+            ZipUtils.addFileToZip(zos, clazz.getName(), transformed);
         } else {
             ZipUtils.addFileToZip(zos, clazz.getName(), bytes);
         }
@@ -108,10 +108,10 @@ public class Processor {
 
             while (iterator.hasNext()) {
                 AnnotationNode annotation = iterator.next();
-                for (Class annotationToRemove : annotationsToRemove) {
-                    if (annotation.desc.equals("L" + annotationToRemove.getName().replace(".", "/") + ";")) {
+                for (String annotationToRemove : annotationsToRemove) {
+                    if (annotation.desc.equals("L" + annotationToRemove.replace(".", "/") + ";")) {
                         iterator.remove();
-                        System.out.println("Removing '" + annotationToRemove.getSimpleName() + "' from " + location);
+                        System.out.println("Removing '" + annotationToRemove + "' from " + location);
                     }
                 }
             }
