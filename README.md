@@ -6,10 +6,10 @@ Particularly useful for obfuscators that use annotations to mark what transforme
 ## Usage
 
 1. Clone repo
-2. Add your **libraries** that include the annotations you want to remove as dependencies.
-3. Replace **annotationsToRemove** with your annotations.
-4. Set your input and output **path**.
-5. Go
+2. Replace **annotationsToRemove** with your annotations.
+3. If required, add your whitelisted packages to remove annotations from. If you want the whole jar to be cleansed, just use `""`.
+5. Set your input and output **path**.
+6. Go
 
 ### Example
 
@@ -17,17 +17,16 @@ Particularly useful for obfuscators that use annotations to mark what transforme
 public class Launcher {
 
     public static void main(String[] args) {
-        List<Class> annotationsToRemove = Arrays.asList(
-                ExtraObfuscation.class,
-                JNIC.class,
-                HideAccess.class,
-                StringEncryption.class
+        List<String> annotationsToRemove = Arrays.asList(
+                "net.bruhitsalex.jnicinterface.JNIC",
+                "net.bruhitsalex.jnicinterface.Performance",
+                "kotlin.Metadata"
         );
 
         File input = new File("jars/test.jar");
         File output = new File("jars/test-output.jar");
 
-        Processor processor = new Processor(input, output, annotationsToRemove);
+        Processor processor = new Processor(input, output, annotationsToRemove, "net.bruhitsalex.testprogram");
         processor.start();
     }
 
@@ -41,5 +40,3 @@ public class Launcher {
 #### After
 
 ![image-20220402021717918](https://i.gyazo.com/6cb94f46e3bab4c3c322b01f1f3692d1.png)
-
-if im bored one day then ill add a quick swing ui
